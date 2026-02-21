@@ -1,0 +1,50 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+
+      - name: Install uv and other tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install uv build twine hatchling
+
+      - name: Synchronize environment
+        run: uv sync
+
+      - name: Publish to PyPI
+        env:
+          # PyPI API token should be stored in repository secret PYPI_TOKEN
+          TWINE_USERNAME: "__token__"
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: uv publish --non-interactive
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: |
+            stivio00/gtop:latest
+            stivio00/gtop:${{ github.sha }}

@@ -252,6 +252,12 @@ The app gracefully handles Docker SDK errors. If container detection fails, proc
 
 ## Development
 
+The repository includes a GitHub Actions workflow (`.github/workflows/publish.yml`) that automatically publishes to PyPI and builds a Docker image whenever code is pushed to `master`/`main` or the workflow is triggered manually. You should set the following secrets in your GitHub repo:
+
+- `PYPI_TOKEN` (PyPI API token)
+- `DOCKER_USERNAME` / `DOCKER_PASSWORD`
+
+
 The project is hosted on GitHub under the user **stivio00**: https://github.com/stivio00/gtop
 
 A simple `Makefile` is included for common tasks:
