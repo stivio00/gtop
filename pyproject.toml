@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "gtop"
-version = "0.1.0"
+version = "0.1.1"
 description = "Real-time GPU monitoring and process management TUI for NVIDIA GPUs"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -27,12 +27,12 @@ classifiers = [
 ]
 keywords = ["gpu", "monitoring", "nvidia", "cuda", "tui", "terminal", "docker", "triton"]
 dependencies = [
-    "nvidia-ml-py",            # latest NVIDIA NVML bindings
-    "pydantic",                # latest data models
-    "textual",                 # latest TUI framework
-    "psutil",                  # latest process utilities
-    "docker",                  # latest Docker SDK for Python
-    "tritonclient[http]",      # latest Triton inference client
+    "nvidia-ml-py>=13.590.48",            # NVIDIA NVML bindings
+    "pydantic>=2.12.5",                   # data models
+    "textual>=8.0.0",                     # TUI framework
+    "psutil>=5.9.0",                      # process utilities
+    "docker>=7.0.0",                      # Docker SDK for Python
+    "tritonclient[http]>=2.30.0",         # Triton inference client
 ]
 
 [project.optional-dependencies]

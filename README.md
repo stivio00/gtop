@@ -40,6 +40,10 @@ uv sync
 
 ### Basic Usage
 
+![GPU Overview](docs/Screenshot_20260221_221729.png)
+![Process Details](docs/Screenshot_20260221_221801.png)
+![Triton Models](docs/Screenshot_20260221_221808.png)
+
 Start monitoring your GPUs:
 
 ```bash
@@ -99,7 +103,6 @@ docker run -it stivio00/gtop --demo
 ```
 
 The image installs the package and defaults to `gtop --demo`. Mount volumes or pass additional flags as needed.
-```
 
 ### JSON Export
 
@@ -197,13 +200,13 @@ python main.py -q  # Short form
 
 | Package | Version | Purpose |
 |---------|---------|---------|
-| `textual` | latest | Terminal user interface framework |
-| `rich` | latest (via Textual) | Colored output and formatting |
-| `nvidia-ml-py` | latest | NVIDIA GPU monitoring via NVML |
-| `pydantic` | latest | Data validation and models |
-| `psutil` | latest | Process information and system utilities |
-| `docker` | latest | Docker container detection |
-| `tritonclient` | latest | NVIDIA Triton server client |
+| `textual` | >=8.0.0 | Terminal user interface framework |
+| `rich` | (via Textual) | Colored output and formatting |
+| `nvidia-ml-py` | >=13.590.48 | NVIDIA GPU monitoring via NVML |
+| `pydantic` | >=2.12.5 | Data validation and models |
+| `psutil` | >=5.9.0 | Process information and system utilities |
+| `docker` | >=7.0.0 | Docker container detection |
+| `tritonclient` | >=2.30.0 | NVIDIA Triton server client |
 
 ## Architecture
 
