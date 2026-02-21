@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gtop"
+version = "0.1.0"
+description = "Real-time GPU monitoring and process management TUI for NVIDIA GPUs"
+readme = "README.md"
+requires-python = ">=3.13"
+license = {text = "MIT"}
+authors = [
+    {name = "Stephen Krol", email = "stephen@example.com"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: System :: Hardware",
+    "Topic :: System :: Monitoring",
+    "Topic :: Utilities",
+]
+keywords = ["gpu", "monitoring", "nvidia", "cuda", "tui", "terminal", "docker", "triton"]
+dependencies = [
+    "nvidia-ml-py",            # latest NVIDIA NVML bindings
+    "pydantic",                # latest data models
+    "textual",                 # latest TUI framework
+    "psutil",                  # latest process utilities
+    "docker",                  # latest Docker SDK for Python
+    "tritonclient[http]",      # latest Triton inference client
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "black>=22.0"]
+
+[project.urls]
+Homepage = "https://github.com/stivio00/gtop"
+Repository = "https://github.com/stivio00/gtop.git"
+Issues = "https://github.com/stivio00/gtop/issues"
+
+[project.scripts]
+gtop = "main:main"
+
+[tool.hatch.build.targets.wheel]
+# include root-level python modules since project is not a package directory
+packages = []
+include = ["*.py"]
