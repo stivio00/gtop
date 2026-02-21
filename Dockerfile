@@ -22,9 +22,9 @@ WORKDIR /app
 # copy project
 COPY . /app
 
-# install python dependencies
-RUN pip install --upgrade pip setuptools
-RUN pip install .
+# install python dependencies using uv
+RUN pip install --upgrade pip setuptools uv
+RUN uv sync
 
 # default command
 ENTRYPOINT ["gtop"]

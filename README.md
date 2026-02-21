@@ -22,23 +22,30 @@ A powerful terminal user interface (TUI) for real-time GPU monitoring and proces
 
 ## Installation
 
-### From Source
+### Using uv (Recommended)
 
 ```bash
 git clone <repository-url>
 cd gtop
-pip install -e .
+uv sync            # installs dependencies into current environment
 ```
 
-### Using uv (Recommended)
+*The project targets Python 3.13; ensure your environment is using that interpreter.*
 
-```bash
-uv sync
-```
+The only installation tool required is `uv`; `pip` is not used directly.
+
 
 ## Usage
 
 ### Basic Usage
+
+When installed in an environment with `uv` you can also run via `uvx`:
+
+```bash
+uvx gtop
+```
+
+This wrapper ensures the right interpreter is used and mirrors how the package is invoked after installation.
 
 ![GPU Overview](docs/Screenshot_20260221_221729.png)
 ![Process Details](docs/Screenshot_20260221_221801.png)
