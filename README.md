@@ -1,5 +1,8 @@
 # GTOP - GPU Monitoring TUI
 
+![GPU Overview](docs/logo.png)
+
+
 A powerful terminal user interface (TUI) for real-time GPU monitoring and process management. Monitor NVIDIA GPUs, visualize memory usage, track resource-consuming processes, and detect containerized workloads—all from the command line.
 
 ## Features
