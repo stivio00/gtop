@@ -16,7 +16,7 @@ A powerful terminal user interface (TUI) for real-time GPU monitoring and proces
 
 ## Requirements
 
-- Python 3.11 or later
+- Python 3.13 or later
 - NVIDIA GPU with CUDA support (or use `--demo` mode for testing)
 - Linux operating system (requires `/proc` filesystem for process introspection)
 
