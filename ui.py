@@ -1,12 +1,16 @@
 """Textual TUI for GPU monitoring."""
 
+from rich.text import Text
 from textual.app import App, ComposeResult
-from textual.widgets import DataTable, Footer, Header
+from textual.containers import Center
+from textual.widgets import DataTable, Footer, Header, Static
 from rich.progress import ProgressBar
 
 from gpu import get_gpu_stats
+from main import VERSION
 from process import get_gpu_processes
 from process_screen import ProcessInfoScreen
+from system_info import get_nvidia_demo_info, get_nvidia_info, get_system_info
 from triton_screen import TritonModelsScreen
 import triton_util
 
@@ -26,10 +30,27 @@ class GPUApp(App):
     ]
 
     CSS_PATH = None  # no CSS for now
+    CSS = """
+    #gpu-info {
+        border: round green; 
+        height: auto;
+        content-align: center middle;
+        background: rgb(10,10,40);
+    }
+    """
 
     def compose(self) -> ComposeResult:
         yield Header()
-        # use renderable priority so colored progress bars keep their hue when a row is selected
+        yield Center(
+            Static(
+                Text(
+                    get_nvidia_demo_info().nice() if DEMO_MODE else get_nvidia_info().nice(),
+                    style="bold cyan",
+                    justify="center",
+                ),
+                id="gpu-info"
+            )
+        )
         self.table = DataTable(
             zebra_stripes=True,
             id="gpu-table",
@@ -70,8 +91,8 @@ class GPUApp(App):
 
     def on_mount(self) -> None:
         # set title and subtitle
-        self.title = "GTOP v0.1.0"
-        self.sub_title = "GPU Monitor"
+        self.title = f"GTOP v{VERSION}"
+        self.sub_title = get_system_info().nice()  # e.g. "Linux" or "Windows"
         # refresh once per second
         self.set_interval(1.0, self._refresh)
         # immediately fill table so UI isn't blank for one tick
