@@ -1,12 +1,22 @@
 """Docker client utilities for container detection."""
 
-try:
-    import docker
-except ImportError:
-    docker = None
+
+import docker
+from pydantic import BaseModel, Field
 
 # global docker client (initialized on first use)
 _docker_client = None
+
+class DockerContainerInfo(BaseModel):
+    """Structured information about a Docker container for a process."""
+    name: str = Field(..., description="Container name")
+    project_name: str|None = Field(None, description="Docker Compose project name")
+    mem_usage_mb: float|None = Field(None, description="Memory used by container in MB")
+    gpus: int|None = Field(default_factory=list, description="GPUs assigned to the container")
+    ports: list[str]|None = Field(default_factory=list, description="Mapped ports in HostPort→ContainerPort format")
+    status: str|None = Field(None, description="Container status: running, paused, etc.")
+    pid: int|None = Field(None, description="PID of the process in this container")
+    image: str|None = Field(None, description="Docker image name")
 
 
 def get_docker_client():
@@ -14,8 +24,6 @@ def get_docker_client():
     global _docker_client
     if _docker_client is not None:
         return _docker_client
-    if docker is None:
-        return None
     try:
         _docker_client = docker.from_env()
         return _docker_client

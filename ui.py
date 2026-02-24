@@ -7,7 +7,7 @@ from textual.widgets import DataTable, Footer, Header, Static
 from rich.progress import ProgressBar
 
 from gpu import get_gpu_stats
-from main import VERSION
+from version import VERSION
 from process import get_gpu_processes
 from process_screen import ProcessInfoScreen
 from system_info import get_nvidia_demo_info, get_nvidia_info, get_system_info
@@ -27,6 +27,8 @@ class GPUApp(App):
         ("tab", "focus_processes", "Focus Processes"),
         ("i", "show_process_info", "Process Info"),
         ("m", "show_triton_models", "Triton Models"),
+        ("n", "toggle_nvidia_info", "Toggle NVIDIA Info"),
+        ("t", "toggle_proccess_view", "table/tree"),
     ]
 
     CSS_PATH = None  # no CSS for now
@@ -49,7 +51,7 @@ class GPUApp(App):
                     justify="center",
                 ),
                 id="gpu-info"
-            )
+            ), id="center-container"
         )
         self.table = DataTable(
             zebra_stripes=True,
@@ -153,6 +155,15 @@ class GPUApp(App):
                         )
                 except (ValueError, IndexError):
                     pass
+    def action_toggle_nvidia_info(self) -> None:
+        """show or hide the NVIDIA system info display."""
+        container = self.query_one("#center-container", Center)
+        container.display = not container.display
+
+    def action_toggle_process_view(self) -> None:
+        """Toggle between table and tree view for processes."""
+        # For simplicity, we'll just toggle visibility of the process table here.
+        self.proc_table.visible = not self.proc_table.visible
 
     def _refresh(self) -> None:
         stats = get_gpu_stats()
