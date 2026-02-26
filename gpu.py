@@ -37,7 +37,7 @@ def get_gpu_stats() -> List[GPUStats]:
     for idx in range(count):
         try:
             handle = pynvml.nvmlDeviceGetHandleByIndex(idx)
-            name = pynvml.nvmlDeviceGetName(handle).decode("utf-8", errors="ignore")
+            name = pynvml.nvmlDeviceGetName(handle)
             util = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu
             mem = pynvml.nvmlDeviceGetMemoryInfo(handle)
             mem_used = mem.used // 1024 // 1024

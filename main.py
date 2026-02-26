@@ -14,8 +14,7 @@ import process as process_module
 import process_info as process_info_module
 import triton_util as triton_util_module
 import ui as ui_module
-
-VERSION = "0.1.5"
+from version import VERSION
 
 
 def main() -> None:
